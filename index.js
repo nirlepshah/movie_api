@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const url = require('url');
+
 //express.static built-in middleware function in Express.
 
 app.use(express.static(__dirname + '/public'));
@@ -79,7 +80,8 @@ app.get('/', (req,resp)=>{
   };
 
 
- app.use(morgan('common', {stream: fs.createWriteStream('./access.log', {flags: 'a'})}));
+  app.use(morgan('common', {stream: fs.createWriteStream('./access.log', {flags: 'a'})}));
+
   app.use(requestTime);
   
   app.get('/', (req,resp)=>{
