@@ -1,18 +1,14 @@
 const express = require('express');
+const morgan = require('morgan')
+const fs = require('fs')
 const app = express();
-const http = require('http');
 const url = require('url');
 
 //express.static built-in middleware function in Express.
 
 app.use(express.static(__dirname + '/public'));
 
-http.createServer((req,resp)=>{
-let requestURL = url.parse(request.url,true)
-if(requestURL.pathname == "/documentation.html"){
-    resp.writeHead(200, {'Content-Type':'text/plain'});
-    resp.end("Documentation on the bookclub API\n");
-}
+
 
 //JSON object containing data about your top 10 movies.
 
@@ -67,12 +63,8 @@ app.get('/', (req,resp)=>{
   
   })
 
-// let myLogger = (req, res, next) => {
-//     console.log(req.url);
-//     next();
-//   };
-  
 
+// middleware to add timestamp of the request
   let requestTime = (req, res, next) => {
     req.requestTime = Date.now();
     console.log(req.requestTime)
@@ -84,13 +76,13 @@ app.get('/', (req,resp)=>{
 
   app.use(requestTime);
   
+  // GET route located at the endpoint “/”
   app.get('/', (req,resp)=>{
   resp.send('Welcome to my movie Collection!')
   
-
 })
 
-
+//error-handling middleware function that will log all application-level errors to the terminal.
 
 app.use((error, req, res, next) => {
     console.error(error.stack); // log an error
