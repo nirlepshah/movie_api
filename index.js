@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan')
 const fs = require('fs')
 const app = express();
-const url = require('url');
+
 
 //express.static built-in middleware function in Express.
 
@@ -56,12 +56,6 @@ let topMovies = [
       },
 ];
 
-// GET route located at the endpoint “/” that returns a default textual response .
-
-app.get('/', (req,resp)=>{
-    resp.send('Welcome to my movie Collection!')
-  
-  })
 
 
 // middleware to add timestamp of the request
@@ -81,16 +75,18 @@ app.get('/', (req,resp)=>{
   resp.send('Welcome to my movie Collection!')
   })
 
-//error-handling middleware function that will log all application-level errors to the terminal.
-
-app.get('/movies', (req, res) => {
+  // GET route located at the endpoint “/movies”
+  app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
+
+//error-handling middleware function that will log all application-level errors to the terminal.
+
 app.use((error, req, res, next) => {
     console.error(error.stack); // log an error
     res.send(`Something Broke`) // Renders an error page to user!
    });
 
 
-}).listen(8081)
-console.log('My first node server is running on the port 8080.')
+app.listen(8081)
+console.log('My first node server is running on the port 8081.')
