@@ -80,8 +80,9 @@ let topMovies = [
     res.json(topMovies);
 });
 
+ // GET route located at the endpoint “/documentation.html”
 app.get('/documentation', (req, resp) =>{
-    resp.sendFile('./documentation.html');
+    resp.sendFile('./documentation.html', {root: __dirname});
 });
 
 //error-handling middleware function that will log all application-level errors to the terminal.
