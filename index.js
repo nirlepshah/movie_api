@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const url = require('url');
+//express.static built-in middleware function in Express.
+
+app.use(express.static(__dirname + '/public'));
 
 http.createServer((req,resp)=>{
 let requestURL = url.parse(request.url,true)
@@ -60,7 +63,6 @@ let topMovies = [
 
 app.get('/', (req,resp)=>{
     resp.send('Welcome to my movie Collection!')
-    
   
   })
 
