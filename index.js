@@ -90,6 +90,13 @@ app.get('/', (req,resp)=>{
 
 })
 
-resp.end("Welcome to my book club\n");
+
+
+app.use((error, req, res, next) => {
+    console.error(error.stack); // log an error
+    res.send(`Something Broke`) // Renders an error page to user!
+   });
+
+
 }).listen(8081)
 console.log('My first node server is running on the port 8080.')
