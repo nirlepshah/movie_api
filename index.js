@@ -56,6 +56,14 @@ let topMovies = [
       },
 ];
 
+// GET route located at the endpoint “/” that returns a default textual response of your choosing.
+
+app.get('/', (req,resp)=>{
+    resp.send('Welcome to my movie Collection!')
+    
+  
+  })
+
 // let myLogger = (req, res, next) => {
 //     console.log(req.url);
 //     next();
