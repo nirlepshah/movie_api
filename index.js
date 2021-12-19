@@ -80,6 +80,10 @@ let topMovies = [
     res.json(topMovies);
 });
 
+app.get('/documentation', (req, resp) =>{
+    resp.sendFile('./documentation.html');
+});
+
 //error-handling middleware function that will log all application-level errors to the terminal.
 
 app.use((error, req, res, next) => {
