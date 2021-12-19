@@ -56,7 +56,7 @@ let topMovies = [
       },
 ];
 
-// GET route located at the endpoint “/” that returns a default textual response of your choosing.
+// GET route located at the endpoint “/” that returns a default textual response .
 
 app.get('/', (req,resp)=>{
     resp.send('Welcome to my movie Collection!')
@@ -79,11 +79,13 @@ app.get('/', (req,resp)=>{
   // GET route located at the endpoint “/”
   app.get('/', (req,resp)=>{
   resp.send('Welcome to my movie Collection!')
-  
-})
+  })
 
 //error-handling middleware function that will log all application-level errors to the terminal.
 
+app.get('/movies', (req, res) => {
+    res.json(topMovies);
+});
 app.use((error, req, res, next) => {
     console.error(error.stack); // log an error
     res.send(`Something Broke`) // Renders an error page to user!
