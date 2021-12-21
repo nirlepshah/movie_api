@@ -177,6 +177,15 @@ app.get("/genres/:genre", (req, res) => {
   );
 });
 
+app.get("/directors/:directorName", (req, res) => {
+  console.log(req.params.directorName);
+  res.status(200).json(
+    topMovies.find((directorName) => {
+      return directorName.director.name === req.params.directorName;
+    })
+  );
+});
+
 
 //error-handling middleware function that will log all application-level errors to the terminal.
 
