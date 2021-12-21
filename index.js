@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan')
 const fs = require('fs')
 const app = express();
-
+(bodyParser = require("body-parser")), (uuid = require("uuid"));
 
 //express.static built-in middleware function in Express.
 
