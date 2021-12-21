@@ -191,6 +191,18 @@ app.get("/users", (req, res) => {
   res.json(user);
 });
 
+//Allow new user to register entering his name, age and UUID assigned automatically.
+app.post("/users", (req, res) => {
+  const userData = req.body;
+  if (!userData.name) {
+    const message = `You have not entered "name"`;
+    res.status(400).send(message);
+  } else {
+    userData.id = uuid.v4();
+    user.push(userData);
+    res.status(201).json(userData);
+  }
+});
 
 //error-handling middleware function that will log all application-level errors to the terminal.
 
