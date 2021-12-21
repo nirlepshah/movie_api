@@ -224,6 +224,13 @@ app.delete("/users/:userDeregister", (req, res) => {
   res.send("User has been seccessfully de-registered");
 });
 
+//Returns a text confirming movie name that was added successfully.
+app.post("/favorites/:addMovie", (req, res) => {
+  res.send(
+    `New movie: ${req.params.addMovie} has been added successfully added to list of favorite`
+  );
+});
+
 //error-handling middleware function that will log all application-level errors to the terminal.
 
 app.use((error, req, res, next) => {
