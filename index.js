@@ -8,6 +8,8 @@ const app = express();
 
 app.use(express.static(__dirname + '/public'));
 
+//Array to store user information
+const user = [];
 
 
 //JSON object containing data about your top 10 movies.
@@ -128,8 +130,6 @@ app.use(
   })
 );
   
-
-
   
 
   app.use(requestTime);
@@ -190,6 +190,7 @@ app.get("/directors/:directorName", (req, res) => {
 app.get("/users", (req, res) => {
   res.json(user);
 });
+
 
 //Allow new user to register entering his name, age and UUID assigned automatically.
 app.post("/users", (req, res) => {
