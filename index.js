@@ -231,6 +231,11 @@ app.post("/favorites/:addMovie", (req, res) => {
   );
 });
 
+//Returns a text confirming movie that was removed successfully.
+app.delete("/favorites/:removeMovie", (req, res) => {
+  res.send(" Movie has been succeffuly deleted from the favourite list");
+});
+
 //error-handling middleware function that will log all application-level errors to the terminal.
 
 app.use((error, req, res, next) => {
