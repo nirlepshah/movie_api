@@ -5,10 +5,11 @@ const app = express();
 (bodyParser = require("body-parser")), (uuid = require("uuid"));
 
 //express.static built-in middleware function in Express.
-
+app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'));
 
 //Array to store user information
+
 const user = [];
 
 
