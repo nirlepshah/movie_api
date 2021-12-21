@@ -81,7 +81,7 @@ let topMovies = [
 });
 
  // GET route located at the endpoint “/documentation.html”
-app.get('/documentation', (req, resp) =>{
+app.get('/documentation.html', (req, resp) =>{
     resp.sendFile('./documentation.html', {root: __dirname});
 });
 
