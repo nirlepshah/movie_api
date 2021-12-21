@@ -16,5 +16,97 @@
       Users will be able to sign up, update their personal information, and
       create a list of their favorite movies.
     </p>
+    <table>
+      <tr>
+        <th>Request</th>
+        <th>URL</th>
+        <th>HTTP Method</th>
+        <th>Response</th>
+      </tr>
+
+      <tr>
+        <td>Display Welcome message</td>
+        <td>/</td>
+        <td>GET</td>
+        <td>Renders Welcome message</td>
+      </tr>
+      <tr>
+        <td>API Documentation</td>
+        <td>/documentation</td>
+        <td>GET</td>
+        <td>Renders API documentation</td>
+      </tr>
+      <tr>
+        <td>Get a list of movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>Returns a JSON list of movies.</td>
+      </tr>
+      <tr>
+        <td>Get data about the movie</td>
+        <td>/movies/:title</td>
+        <td>GET</td>
+        <td>
+          Returns a JSON with data about a single movie by title to the user.
+        </td>
+      </tr>
+      <tr>
+        <td>Return data about a genre by name/title.</td>
+        <td>/genres/:genre</td>
+        <td>GET</td>
+        <td>Returns a JSON data with movies of that ganre.</td>
+      </tr>
+      <tr>
+        <td>Get data about director</td>
+        <td>/directors/:directorName</td>
+        <td>GET</td>
+        <td>
+          Return data about a director (bio, birth year, death year) by name
+        </td>
+      </tr>
+      <tr>
+        <td>Get list of all users</td>
+        <td>/users</td>
+        <td>GET</td>
+        <td>Returns a JSON data with all the users.</td>
+      </tr>
+      <tr>
+        <td>New user Registration</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>
+          Allow new user to register entering his name, age and UUID assigned
+          automatically.
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to update their user info (username)</td>
+        <td>/users/:old_name/:new_name</td>
+        <td>PUT</td>
+        <td>
+          Returns a text only confirming orginal userName has been changed.
+        </td>
+      </tr>
+      <tr>
+        <td>Allow existing users to deregister</td>
+        <td>/users/:userDeregister</td>
+        <td>DELETE</td>
+        <td>Returns a text confirming that the user was de-registered.</td>
+      </tr>
+      <tr>
+        <td>Allow users to add a movie to their list of favorites</td>
+        <td>/favorites/:addMovie</td>
+        <td>POST</td>
+        <td>
+          Returns a text confirming movie name that was added successfully.
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to remove a movie from their list of favorites</td>
+        <td>/favorites/:removeMovie</td>
+        <td>DELETE</td>
+        <td>Returns a text confirming movie that was removed successfully.</td>
+      </tr>
+    </table>
   </body>
 </html>
