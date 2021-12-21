@@ -13,50 +13,119 @@ app.use(express.static(__dirname + '/public'));
 //JSON object containing data about your top 10 movies.
 
 let topMovies = [
-
-    {
-        title: 'The Godfather',
-        director: 'Francis Ford Coppola'
+  {
+    title: "The Godfather",
+    writer: "Mario Puzo",
+    genre: "Crime",
+    director: {
+      name: "Francis Ford Coppola",
+      birth: "1939",
+      death: "no",
     },
-    {
-        title: 'Pulp Fiction',
-        director: 'Quentin Tarantino'
-      },
-      {
-        title: 'Inception',
-        director: 'Christopher Nolan'
-      },
-      {
-        title: 'Se7en',
-        director: 'David Fincher'
-      },
-      {
-        title: 'Inception',
-        director: 'Ridley Scott'
-      },
-      {
-        title: '3 Idiots',
-        director: 'Rajkumar Hirani'
-      },
-      {
-        title: 'Dangal',
-        director: 'Clint Eastwood'
-      },
-      {
-        title: 'Gran Torino',
-        director: 'Christopher Nolan'
-      },
-      {
-        title: 'Black Friday',
-        director: 'Anurag Kashyap'
-      },
-      {
-        title: 'Talvar',
-        director: 'Meghna Gulzar'
-      },
+  },
+  {
+    title: "Pulp Fiction",
+    writer: "Quentin Tarantino",
+    genre: "Drama",
+    director: {
+      name: "Quentin Tarantino",
+      birth: "1963",
+      death: "no",
+    },
+  },
+  {
+    title: "Inception",
+    writer: "Christopher Nolan",
+    genre: "Adventure",
+    director: {
+      name: "Christopher Nolan",
+      birth: "1970",
+      death: "no",
+    },
+  },
+  {
+    title: "Se7en",
+    writer: "Andrew Kevin Walker",
+    genre: "Mystery",
+    director: {
+      name: "David Fincher",
+      birth: "1962",
+      death: "no",
+    },
+  },
+  {
+    title: "A Wednesday",
+    writer: "Neeraj Pandey",
+    genre: "Action",
+    director: {
+      name: "Neeraj Pandey",
+      birth: "1973",
+      death: "no",
+    },
+  },
+  {
+    title: "3 Idiots",
+    writer: "Rajkumar Hirani",
+    genre: "Comedy",
+    director: {
+      name: "Rajkumar Hirani",
+      birth: "1962",
+      death: "no",
+    },
+  },
+  {
+    title: "Dangal",
+    writer: "Piyush Gupta",
+    genre: "Biography",
+    director: {
+      name: "Nitesh Tiwari",
+      birth: "1973",
+      death: "no",
+    },
+  },
+  {
+    title: "Gran Torino",
+    writer: "Nick Schenk",
+    genre: "Drama",
+    director: {
+      name: "Clint Eastwood",
+      birth: "1930",
+      death: "no",
+    },
+  },
+  {
+    title: "Once Upon a Time in America",
+    writer: "Harry Grey",
+    genre: "Crime",
+    director: {
+      name: "Sergio Leone",
+      birth: "1929",
+      death: "1989",
+    },
+  },
+  {
+    title: "Talvar",
+    writer: "Vishal Bhardwaj",
+    genre: "Drama",
+    director: {
+      name: "Meghna Gulzar",
+      birth: "1937",
+      death: "no",
+    },
+  },
 ];
 
+let requestTime = (req, res, next) => {
+  req.requestTime = Date.now();
+  console.log(req.requestTime);
+  next();
+};
 
+app.use(
+  morgan("common", {
+    stream: fs.createWriteStream("./access.log", { flags: "a" }),
+  })
+);
 
 // middleware to add timestamp of the request
   let requestTime = (req, res, next) => {
