@@ -205,6 +205,7 @@ app.post("/users", (req, res) => {
 });
 
 //Returns a text only confirming orginal userName has been changed.
+
 app.put("/users/:name/:new_name", (req, res) => {
   let userName = user.find((guest) => {
     return guest.name === req.params.name;
@@ -216,6 +217,11 @@ app.put("/users/:name/:new_name", (req, res) => {
   } else {
     res.status(404).send(`Original name does not exist`);
   }
+});
+
+// De-register user
+app.delete("/users/:userDeregister", (req, res) => {
+  res.send("User has been seccessfully de-registered");
 });
 
 //error-handling middleware function that will log all application-level errors to the terminal.
