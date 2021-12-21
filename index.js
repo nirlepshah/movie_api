@@ -215,7 +215,7 @@ app.put("/users/:name/:new_name", (req, res) => {
 
   if (userName) {
     userName = req.params.new_name;
-    res.status(201).send(`${req.params.name} is chnaged`);
+    res.status(201).send(`${req.params.name} you have successfuly updated your username`);
   } else {
     res.status(404).send(`Original name does not exist`);
   }
