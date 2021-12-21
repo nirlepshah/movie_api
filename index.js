@@ -204,6 +204,20 @@ app.post("/users", (req, res) => {
   }
 });
 
+//Returns a text only confirming orginal userName has been changed.
+app.put("/users/:name/:new_name", (req, res) => {
+  let userName = user.find((guest) => {
+    return guest.name === req.params.name;
+  });
+
+  if (userName) {
+    userName = req.params.new_name;
+    res.status(201).send(`${req.params.name} is chnaged`);
+  } else {
+    res.status(404).send(`Original name does not exist`);
+  }
+});
+
 //error-handling middleware function that will log all application-level errors to the terminal.
 
 app.use((error, req, res, next) => {
