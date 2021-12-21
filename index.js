@@ -186,6 +186,11 @@ app.get("/directors/:directorName", (req, res) => {
   );
 });
 
+//Returns a JSON data with all the users.
+app.get("/users", (req, res) => {
+  res.json(user);
+});
+
 
 //error-handling middleware function that will log all application-level errors to the terminal.
 
