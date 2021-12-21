@@ -115,6 +115,7 @@ let topMovies = [
   },
 ];
 
+// middleware to add timestamp of the request
 let requestTime = (req, res, next) => {
   req.requestTime = Date.now();
   console.log(req.requestTime);
@@ -126,16 +127,10 @@ app.use(
     stream: fs.createWriteStream("./access.log", { flags: "a" }),
   })
 );
-
-// middleware to add timestamp of the request
-  let requestTime = (req, res, next) => {
-    req.requestTime = Date.now();
-    console.log(req.requestTime)
-    next();
-  };
+  
 
 
-  app.use(morgan('common', {stream: fs.createWriteStream('./access.log', {flags: 'a'})}));
+  
 
   app.use(requestTime);
   
@@ -144,15 +139,34 @@ app.use(
   resp.send('Welcome to my movie Collection!')
   })
 
-  // GET route located at the endpoint “/movies”
+//Returns a JSON list of movies.
   app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
  // GET route located at the endpoint “/documentation.html”
-app.get('/documentation.html', (req, resp) =>{
-    resp.sendFile('./documentation.html', {root: __dirname});
+ app.get("/documentation", (req, resp) => {
+  resp.sendFile("/public/documentation.html", { root: __dirname });
 });
+//Returns a JSON with data about a single movie by title to the user.
+app.get("/movies/:title", (req, res) => {
+  console.log(req.params);
+
+  const found = topMovies.some(
+    (movieTitle) => movieTitle.title === req.params.title
+  );
+
+  if (found) {
+    res.status(200).json(
+      topMovies.find((myMovie) => {
+        return myMovie.title === req.params.title;
+      })
+    );
+  } else res.send("Title not found");
+});
+
+
+
 
 //error-handling middleware function that will log all application-level errors to the terminal.
 
