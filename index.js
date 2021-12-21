@@ -148,6 +148,7 @@ app.use(
  app.get("/documentation", (req, resp) => {
   resp.sendFile("/public/documentation.html", { root: __dirname });
 });
+
 //Returns a JSON with data about a single movie by title to the user.
 app.get("/movies/:title", (req, res) => {
   console.log(req.params);
@@ -165,7 +166,16 @@ app.get("/movies/:title", (req, res) => {
   } else res.send("Title not found");
 });
 
+//Returns a JSON data with movies of that genre.
+app.get("/genres/:genre", (req, res) => {
+  console.log(req.params.genre);
 
+  res.status(200).json(
+    topMovies.filter((movieGenre) => {
+      return movieGenre.genre === req.params.genre;
+    })
+  );
+});
 
 
 //error-handling middleware function that will log all application-level errors to the terminal.
