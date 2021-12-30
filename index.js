@@ -93,11 +93,15 @@ app.get("/directors/:directorName", (req, res) => {
     res.status(500).send('Error' + err);
 });
 });
-//Returns a JSON data with all the users.
-app.get("/users", (req, res) => {
-  res.json(user);
-});
 
+//Get data about all users
+app.get("/users", (req, res) => {
+  Users.find().then((users)=>{
+    res.status(201).json(users);
+  }).catch((err)=>{console.error(err);
+    res.status(500).send('Error' + error);})
+  });
+  
 
 //Allow new user to register entering his name, age and UUID assigned automatically.
 app.post("/users", (req, res) => {
