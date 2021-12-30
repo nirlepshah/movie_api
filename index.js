@@ -15,6 +15,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//import uuid library
+const uuid = require("uuid");
+
 //express.static built-in middleware function in Express.
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'));
@@ -35,10 +38,10 @@ app.use(
   
   
   app.use(requestTime);
+// Integrating Mongoose with a API
 
 const Movies = Models.Movie;
 const Users = Models.User;
-
 
 mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
   
