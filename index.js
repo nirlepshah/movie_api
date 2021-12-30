@@ -49,16 +49,20 @@ mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true,
   app.get('/', (req,resp)=>{
   resp.send('Welcome to my movie Collection!')
   })
-
-//Returns a JSON list of movies.
-  app.get('/movies', (req, res) => {
-    res.json(topMovies);
-});
-
- // GET route located at the endpoint “/documentation.html”
+   // GET route located at the endpoint “/documentation.html”
  app.get("/documentation", (req, resp) => {
   resp.sendFile("/public/documentation.html", { root: __dirname });
 });
+
+// Return a list of ALL movies to the user
+app.get("/movies", (req, res) => {
+  Movies.find().then((movie)=>{
+res.status(200).json(movie)
+  }).catch((err)=>{
+    res.status(500).send('Error' + err);
+  })
+  });
+
 
 //Returns a JSON with data about a single movie by title to the user.
 app.get("/movies/:title", (req, res) => {
