@@ -153,10 +153,24 @@ app.put('/users/:Username',  (req, res) => {
 })
 
 
-// De-register user
-app.delete("/users/:userDeregister", (req, res) => {
-  res.send("User has been seccessfully de-registered");
+//Allow user to add movie to list of favorites
+app.post('/users/:Username/movies/:title',  (req, res) => {
+  var favMovie = req.params.title;
+  console.log(favMovie);
+  Users.findOneAndUpdate({Username: req.params.Username}, {
+      $addToSet: {FavouriteMovies: req.params.title}
+  },
+  { new: true},
+ (err, updatedUser) => {
+     if (err) {
+         console.error(err);
+         res.status(500).send('Error' + err);
+     } else {
+         res.json(updatedUser);
+     }
+ });
 });
+
 
 //Returns a text confirming movie name that was added successfully.
 app.post("/favorites/:addMovie", (req, res) => {
