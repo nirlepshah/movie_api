@@ -129,20 +129,29 @@ app.post('/users', (req, res) => {
     });
   });
 
-//Returns a text only confirming orginal userName has been changed.
+// Allow users to update their user information
 
-app.put("/users/:name/:new_name", (req, res) => {
-  let userName = user.find((guest) => {
-    return guest.name === req.params.name;
-  });
+app.put('/users/:Username',  (req, res) => {
+  Users.findOneAndUpdate({Username: req.params.Username}, {$set:
+   {
+       Username: req.body.Username,
+       Password: req.body.Password,
+       Email: req.body.Email,
+       Birthday: req.body.Birthday
+   }
+},
 
-  if (userName) {
-    userName = req.params.new_name;
-    res.status(201).send(`${req.params.name} you have successfuly updated your username`);
-  } else {
-    res.status(404).send(`Original name does not exist`);
-  }
-});
+{ new: true},
+(err, updatedUser) => {
+   if(err) {
+       console.error(err);
+       res.status(500).send('Error' + err);
+   } else {
+       res.json(updatedUser);
+   }
+   });
+})
+
 
 // De-register user
 app.delete("/users/:userDeregister", (req, res) => {
