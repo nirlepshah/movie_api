@@ -64,21 +64,14 @@ res.status(200).json(movie)
   });
 
 
-//Returns a JSON with data about a single movie by title to the user.
+// Get data about specific movie.
+
 app.get("/movies/:title", (req, res) => {
-  console.log(req.params);
-
-  const found = topMovies.some(
-    (movieTitle) => movieTitle.title === req.params.title
-  );
-
-  if (found) {
-    res.status(200).json(
-      topMovies.find((myMovie) => {
-        return myMovie.title === req.params.title;
-      })
-    );
-  } else res.send("Title not found");
+  Movies.findOne({Title:req.params.title}).then((movies)=>{
+    res.status(200).res.json(movies)
+  }).catch((err)=>{console.log(err)
+    res.status(500).send('Error' + err);
+  })
 });
 
 //Returns a JSON data with movies of that genre.
