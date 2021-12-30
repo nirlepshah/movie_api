@@ -34,8 +34,13 @@ app.use(
 );
   
   
-
   app.use(requestTime);
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+
+mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
   
   // GET route located at the endpoint “/”
   app.get('/', (req,resp)=>{
