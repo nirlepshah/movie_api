@@ -66,9 +66,9 @@ res.status(200).json(movie)
 
 // Get data about specific movie.
 
-app.get("/movies/:title", (req, res) => {
-  Movies.findOne({Title:req.params.title}).then((movies)=>{
-    res.status(200).res.json(movies)
+app.get("/movies/:Title", (req, res) => {
+  Movies.findOne({Title:req.params.Title}).then((movies)=>{
+    res.json(movies)
   }).catch((err)=>{console.log(err)
     res.status(500).send('Error' + err);
   })
