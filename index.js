@@ -172,17 +172,24 @@ app.post('/users/:Username/movies/:title',  (req, res) => {
 });
 
 
-//Returns a text confirming movie name that was added successfully.
-app.post("/favorites/:addMovie", (req, res) => {
-  res.send(
-    `New movie: ${req.params.addMovie} has been added successfully added to list of favorite`
-  );
+
+//Allow user to remove movie from list of favorites
+app.delete('/users/:Username/movies/:title',  (req, res) => {
+
+  Users.findOneAndUpdate({Username: req.params.Username}, {
+      $pull: {FavouriteMovies: req.params.title}
+  },
+  { new: true},
+ (err, updatedUser) => {
+     if (err) {
+         console.error(err);
+         res.status(500).send('Error' + err);
+     } else {
+         res.json(updatedUser);
+     }
+ });
 });
 
-//Returns a text confirming movie that was removed successfully.
-app.delete("/favorites/:removeMovie", (req, res) => {
-  res.send(" Movie has been succeffuly deleted from the favourite list");
-});
 
 //error-handling middleware function that will log all application-level errors to the terminal.
 
