@@ -84,15 +84,15 @@ app.get("/genres/:genre", (req, res) => {
   })
 });
 
+// Return data about Movie Director.
 app.get("/directors/:directorName", (req, res) => {
-  console.log(req.params.directorName);
-  res.status(200).json(
-    topMovies.find((directorName) => {
-      return directorName.director.name === req.params.directorName;
-    })
-  );
+  Movies.findOne({"Director.Name":req.params.directorName}).then((movies)=>{
+    res.status(200).json(movies.Director);
+  }).catch((err)=>{
+    console.error(err);
+    res.status(500).send('Error' + err);
 });
-
+});
 //Returns a JSON data with all the users.
 app.get("/users", (req, res) => {
   res.json(user);
