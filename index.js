@@ -103,18 +103,31 @@ app.get("/users", (req, res) => {
   });
   
 
-//Allow new user to register entering his name, age and UUID assigned automatically.
-app.post("/users", (req, res) => {
-  const userData = req.body;
-  if (!userData.name) {
-    const message = `You have not entered "name"`;
-    res.status(400).send(message);
-  } else {
-    userData.id = uuid.v4();
-    user.push(userData);
-    res.status(201).json(userData);
-  }
-});
+// Add new user
+app.post('/users', (req, res) => {
+  Users.findOne({Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + ' Already exists');
+      } else {
+        Users.create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+  });
 
 //Returns a text only confirming orginal userName has been changed.
 
