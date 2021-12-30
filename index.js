@@ -9,121 +9,16 @@ const mongoose = require('mongoose');
 
 const Models = require('./models');
 
-(bodyParser = require("body-parser")), (uuid = require("uuid"));
+//body-parser imported
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //express.static built-in middleware function in Express.
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'));
 
-//Array to store user information
-
-const user = [];
-
-
-//JSON object containing data about your top 10 movies.
-
-let topMovies = [
-  {
-    title: "The Godfather",
-    writer: "Mario Puzo",
-    genre: "Crime",
-    director: {
-      name: "Francis Ford Coppola",
-      birth: "1939",
-      death: "no",
-    },
-  },
-  {
-    title: "Pulp Fiction",
-    writer: "Quentin Tarantino",
-    genre: "Drama",
-    director: {
-      name: "Quentin Tarantino",
-      birth: "1963",
-      death: "no",
-    },
-  },
-  {
-    title: "Inception",
-    writer: "Christopher Nolan",
-    genre: "Adventure",
-    director: {
-      name: "Christopher Nolan",
-      birth: "1970",
-      death: "no",
-    },
-  },
-  {
-    title: "Se7en",
-    writer: "Andrew Kevin Walker",
-    genre: "Mystery",
-    director: {
-      name: "David Fincher",
-      birth: "1962",
-      death: "no",
-    },
-  },
-  {
-    title: "A Wednesday",
-    writer: "Neeraj Pandey",
-    genre: "Action",
-    director: {
-      name: "Neeraj Pandey",
-      birth: "1973",
-      death: "no",
-    },
-  },
-  {
-    title: "3 Idiots",
-    writer: "Rajkumar Hirani",
-    genre: "Comedy",
-    director: {
-      name: "Rajkumar Hirani",
-      birth: "1962",
-      death: "no",
-    },
-  },
-  {
-    title: "Dangal",
-    writer: "Piyush Gupta",
-    genre: "Biography",
-    director: {
-      name: "Nitesh Tiwari",
-      birth: "1973",
-      death: "no",
-    },
-  },
-  {
-    title: "Gran Torino",
-    writer: "Nick Schenk",
-    genre: "Drama",
-    director: {
-      name: "Clint Eastwood",
-      birth: "1930",
-      death: "no",
-    },
-  },
-  {
-    title: "Once Upon a Time in America",
-    writer: "Harry Grey",
-    genre: "Crime",
-    director: {
-      name: "Sergio Leone",
-      birth: "1929",
-      death: "1989",
-    },
-  },
-  {
-    title: "Talvar",
-    writer: "Vishal Bhardwaj",
-    genre: "Drama",
-    director: {
-      name: "Meghna Gulzar",
-      birth: "1937",
-      death: "no",
-    },
-  },
-];
 
 // middleware to add timestamp of the request
 let requestTime = (req, res, next) => {
