@@ -22,25 +22,32 @@
         <th>URL</th>
         <th>HTTP Method</th>
         <th>Response</th>
+        <th>Expected Output/Example</th>
       </tr>
 
       <tr>
         <td>Display Welcome message</td>
         <td>/</td>
         <td>GET</td>
-        <td>Renders Welcome message</td>
+        <td>Returns Welcome message.</td>
+        <td>"Welcome to my movie Collection!"</td>
       </tr>
       <tr>
         <td>API Documentation</td>
         <td>/documentation</td>
         <td>GET</td>
-        <td>Renders API documentation</td>
+        <td>Returns API documentation.</td>
+        <td>API Documentation in HTML format</td>
       </tr>
       <tr>
         <td>Get a list of movies</td>
         <td>/movies</td>
         <td>GET</td>
         <td>Returns a JSON list of movies.</td>
+        <td>
+          At this endpoint all the movies avaiable in the list are displayed in
+          JSON format
+        </td>
       </tr>
       <tr>
         <td>Get data about the movie</td>
@@ -49,19 +56,54 @@
         <td>
           Returns a JSON with data about a single movie by title to the user.
         </td>
+        <td>
+          <i>Example:</i> <br />
+          { "Genre": { "Name": "Crime", "Description": "Crime fiction, detective
+          story, murder mystery, mystery novel, and police novel are terms used
+          to describe narratives that centre on criminal acts and especially on
+          the investigation, either by an amateur or a professional detective,
+          of a serious crime, generally a murder." }, "Director": { "Name":
+          "Francis Ford Coppola", "Bio": "Francis Ford Coppola was born in 1939
+          in Detroit, Michigan, but grew up in a New York suburb in a creative,
+          supportive Italian-American family. His father, Carmine Coppola, was a
+          composer and musician. ", "Birth": "1939-04-07T00:00:00.000Z" },
+          "Actors": [], "_id": "61c955188ecc8b1b59e89556", "Title": "The
+          Godfather", "Description": "The Godfather follows Vito Corleone, Don
+          of the Corleone family, as he passes the mantel to his unwilling son,
+          Michael.", "ImagePath":
+          "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY98_CR1,0,67,98_AL_.jpg",
+          "Featured": true }
+        </td>
       </tr>
       <tr>
         <td>Return data about a genre by name/title.</td>
         <td>/genres/:genre</td>
         <td>GET</td>
         <td>Returns a JSON data with movies of that ganre.</td>
+        <td>
+          <i>Example: </i><br />
+          { "Name": "Drama", "Description": "Drama is a category of narrative
+          fiction (or semi-fiction) intended to be more serious than humorous in
+          tone. Drama of this kind is usually qualified with additional terms
+          that specify its particular super-genre, macro-genre, or
+          micro-genre,[2] such as soap opera (operatic drama), police crime
+          drama, political drama, legal drama, historical drama, domestic drama,
+          teen drama, and comedy-drama (dramedy)." }
+        </td>
       </tr>
       <tr>
         <td>Get data about director</td>
         <td>/directors/:directorName</td>
         <td>GET</td>
         <td>
-          Return data about a director (bio, birth year, death year) by name
+          Return data about a director (bio, birth year, death year) by name.
+        </td>
+        <td>
+          <i>Example:</i><br />
+          { "Name": "Frank Darabont", "Bio": "Three-time Oscar nominee Frank
+          Darabont was born in a refugee camp in 1959 in Montbeliard, France,
+          the son of Hungarian parents who had fled Budapest during the failed
+          1956 Hungarian revolution.", "Birth": "1959-01-28T00:00:00.000Z" }
         </td>
       </tr>
       <tr>
@@ -69,6 +111,14 @@
         <td>/users</td>
         <td>GET</td>
         <td>Returns a JSON data with all the users.</td>
+        <td>
+          <i>Example:</i><br />
+          { "_id": "61cd4a129e7b7722e1c8c6c6", "Username": "Ricardo",
+          "Password": "*98jh!JK", "Email": "ricardo889@hotmail.com", "Birthday":
+          "1986-09-25T00:00:00.000Z", "FavouriteMovies": [
+          "61c91008abc818577b7cd47f", "61c91008abc818577b7cd47f",
+          "61c91008abc818577b7cd47f" ] },
+        </td>
       </tr>
       <tr>
         <td>New user Registration</td>
@@ -78,34 +128,61 @@
           Allow new user to register entering his name, age and UUID assigned
           automatically.
         </td>
+        <td>
+          <i>Example:</i><br />{ "Username": "Thomas", "Password": "test8978",
+          "Email": "user123@live,com", "Birthday": "1986-07-02T04:00:00.000Z",
+          "FavouriteMovies": [], "_id": "61ce52ebb1360bafb0a0d529", "__v": 0 }
+        </td>
       </tr>
       <tr>
         <td>Allow users to update their user info (username)</td>
-        <td>/users/:old_name/:new_name</td>
+        <td>/users/:Username</td>
         <td>PUT</td>
         <td>
           Returns a text only confirming orginal userName has been changed.
         </td>
+        <td>
+          <i>Example:</i><br />
+          { "_id": "61ce52ebb1360bafb0a0d529", "Username": "Thomas", "Password":
+          "test8797", "Email": "user123@live,com", "Birthday":
+          "1986-07-02T04:00:00.000Z", "FavouriteMovies": [], "__v": 0 }
+        </td>
       </tr>
-      <tr>
-        <td>Allow existing users to deregister</td>
-        <td>/users/:userDeregister</td>
-        <td>DELETE</td>
-        <td>Returns a text confirming that the user was de-registered.</td>
-      </tr>
+
       <tr>
         <td>Allow users to add a movie to their list of favorites</td>
-        <td>/favorites/:addMovie</td>
+        <td>/users/:Username/movies/:title</td>
         <td>POST</td>
+        <td>Allow users to add a movie to their list of favorites</td>
         <td>
-          Returns a text confirming movie name that was added successfully.
+          <i>Example:</i><br />
+          { "_id": "61ce52ebb1360bafb0a0d529", "Username": "Thomas", "Password":
+          "test8797", "Email": "user123@live,com", "Birthday":
+          "1986-07-02T04:00:00.000Z", "FavouriteMovies": [
+          "61c955808ecc8b1b59e8955f" ], "__v": 0 }
         </td>
       </tr>
       <tr>
         <td>Allow users to remove a movie from their list of favorites</td>
-        <td>/favorites/:removeMovie</td>
+        <td>/users/:Username/movies/:title</td>
         <td>DELETE</td>
-        <td>Returns a text confirming movie that was removed successfully.</td>
+        <td>Allow users to remove a movie from their list of favorites.</td>
+        <td>
+          <i>Example:</i><br />{ "_id": "61ce52ebb1360bafb0a0d529", "Username":
+          "Thomas", "Password": "test8797", "Email": "user123@live,com",
+          "Birthday": "1986-07-02T04:00:00.000Z", "FavouriteMovies": [], "__v":
+          0 }
+        </td>
+      </tr>
+      <tr>
+        <td>Allow existing users to deregister</td>
+        <td>/users/:Username</td>
+        <td>DELETE</td>
+        <td>Allow existing users to deregister</td>
+        <td>
+          <i>Example:</i> <br />
+          Thomas was deleted.<br />
+        </td>
       </tr>
     </table>
   </body>
