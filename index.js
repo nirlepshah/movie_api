@@ -39,6 +39,12 @@ app.use(
   
   
   app.use(requestTime);
+
+
+  const passport = require('passport');
+require('./passport');
+let auth = require('./auth')(app);
+
 // Integrating Mongoose with a API
 
 const Movies = Models.Movie;
@@ -56,7 +62,7 @@ mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true,
 });
 
 // Return a list of ALL movies to the user
-app.get("/movies", (req, res) => {
+app.get("/movies", passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find().then((movie)=>{
 res.status(200).json(movie)
   }).catch((err)=>{
