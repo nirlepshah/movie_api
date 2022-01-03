@@ -2,6 +2,10 @@ const express = require('express');
 const morgan = require('morgan')
 const fs = require('fs')
 const app = express();
+const port = process.env.PORT || 8083;
+//import express-validator
+
+const { check, validationResult } = require('express-validator');
 
 //Import mongoose library and model.js
 
@@ -24,6 +28,39 @@ app.use(express.static(__dirname + '/public'));
 
 
 
+
+
+// Import passport library 
+
+  const passport = require('passport');
+require('./passport');
+let auth = require('./auth')(app);
+
+//Import CORS
+
+const cors = require('cors');
+app.use(cors());
+
+let allowedOrigins = ['http://localhost:8087'];
+
+
+app.use(cors({
+origin: (origin,callback) => {
+  if(!origin) return callback(null, true);
+  if(allowedOrigins.indexOf(origin) === -1) {
+    let message = `The CORS policy for this application doesn't allow access from origin  ${origin}`;
+  return callback(new Error(message), false);
+  }
+  return callback(null, true);
+}}));
+
+// Integrating Mongoose with a API
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
+
 // middleware to add timestamp of the request
 let requestTime = (req, res, next) => {
   req.requestTime = Date.now();
@@ -39,13 +76,14 @@ app.use(
   
   
   app.use(requestTime);
-  
+
 // Integrating Mongoose with a API
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
 mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
+
   
   // GET route located at the endpoint “/”
   app.get('/', (req,resp)=>{
@@ -106,7 +144,14 @@ app.get("/users", (req, res) => {
   
 
 // Add new user
-app.post('/users', (req, res) => {
+app.post('/users', [check('Username','Username is required').isLength({min: 5}),check('Username','Username contains non-alphanumeric characters - not allowed.' ).isAlphanumeric(),check('Passowrd','Passowrd is required').isEmpty(),check('Email','Email does not appeared to be valid').isEmail()],(req, res) => {
+
+ let errors = validationResult(req);
+ if(!errors.isEmpty()){
+   return res.status(422).json({errors: errors.array()})
+ }
+  let hashedPassword = Users.hashPassword(req.body.Password);
+ 
   Users.findOne({Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -114,7 +159,7 @@ app.post('/users', (req, res) => {
       } else {
         Users.create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -219,5 +264,6 @@ app.use((error, req, res, next) => {
    });
 
 
-app.listen(8083)
-console.log('My first node server is running on the port 8083.')
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port)
+})
