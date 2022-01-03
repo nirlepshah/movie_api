@@ -32,9 +32,7 @@ app.use(express.static(__dirname + '/public'));
 require('./passport');
 let auth = require('./auth')(app);
 
-//Import CORS
-const cors = require('cors');
-app.use(cors());
+
 
 let allowedOrigins = ['http://localhost:8087'];
 
