@@ -77,10 +77,6 @@ app.use(
   
   app.use(requestTime);
 
-// Integrating Mongoose with a API
-
-const Movies = Models.Movie;
-const Users = Models.User;
 
 mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
 
