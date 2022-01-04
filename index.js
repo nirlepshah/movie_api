@@ -118,12 +118,12 @@ app.get("/users", passport.authenticate('jwt', { session: false }), (req, res) =
   
 
 // Add new user
-app.post('/users',  [
+app.post('/users', [
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
-](req, res) => {
+], (req, res) => {
 //Variable to store hashed password
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({Username: req.body.Username })
