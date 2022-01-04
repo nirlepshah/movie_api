@@ -14,21 +14,11 @@ const Models = require('./models');
  const Movies = Models.Movie;
  const Users = Models.User;
 
-const getConnection = async () => {
-  try {
-    await mongoose.connect(
-      process.env.CONNECTION_URI,
-      { useCreateIndex: true, useNewUrlParser: true }
-    );
-    console.log('Connection to DB Successful');
-  } catch (err) {
-    console.log('Connection to DB Failed');
-  }
-};
-getConnection();
+ 
+// mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
 
-// mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
-//   console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
+ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 const app = express();
 
@@ -58,8 +48,6 @@ app.use(cors());
 require('./passport');
 let auth = require('./auth')(app);
 
-
-// mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 
