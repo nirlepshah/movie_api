@@ -5,8 +5,23 @@ const app = express();
 require('dotenv').config();
 const uri = process.env.CONNECTION_URI;
 const mongoose = require('mongoose');
-mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
-  console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
+
+
+getConnection = async () => {
+  try {
+    await mongoose.connect(
+      process.env.CONNECTION_URI,
+      { useCreateIndex: true, useNewUrlParser: true }
+    );
+    console.log('Connection to DB Successful');
+  } catch (err) {
+    console.log('Connection to DB Failed');
+  }
+};
+
+// getConnection()
+// mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
+//   console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
 
 //import express-validator
 const { check, validationResult } = require('express-validator');
