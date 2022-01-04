@@ -18,6 +18,7 @@ getConnection = async () => {
     console.log('Connection to DB Failed');
   }
 };
+getConnection();
 
 // getConnection()
 // mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
