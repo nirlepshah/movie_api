@@ -4,7 +4,7 @@ const fs = require('fs')
 const app = express();
 require('dotenv').config();
 const uri = process.env.CONNECTION_URI;
-
+const mongoose = require('mongoose');
 mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
   console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
 
@@ -13,7 +13,7 @@ const { check, validationResult } = require('express-validator');
 
 //Import mongoose library and model.js
 
-const mongoose = require('mongoose');
+
 
 const Models = require('./models');
 
