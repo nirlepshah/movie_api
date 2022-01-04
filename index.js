@@ -14,7 +14,7 @@ const Models = require('./models');
  const Movies = Models.Movie;
  const Users = Models.User;
 
-getConnection = async () => {
+const getConnection = async () => {
   try {
     await mongoose.connect(
       process.env.CONNECTION_URI,
@@ -27,11 +27,11 @@ getConnection = async () => {
 };
 getConnection();
 
-// getConnection()
 // mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
 //   console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
 
 const app = express();
+
 //import express-validator
 const { check, validationResult } = require('express-validator');
 
