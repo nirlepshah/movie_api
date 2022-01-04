@@ -45,21 +45,21 @@ const Users = Models.User;
 
 mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// middleware to add timestamp of the request
-let requestTime = (req, res, next) => {
-  req.requestTime = Date.now();
-  console.log(req.requestTime);
-  next();
-};
+// // middleware to add timestamp of the request
+// let requestTime = (req, res, next) => {
+//   req.requestTime = Date.now();
+//   console.log(req.requestTime);
+//   next();
+// };
 
-app.use(
-  morgan("common", {
-    stream: fs.createWriteStream("./access.log", { flags: "a" }),
-  })
-);
+// app.use(
+//   morgan("common", {
+//     stream: fs.createWriteStream("./access.log", { flags: "a" }),
+//   })
+// );
   
   
-  app.use(requestTime);
+  // app.use(requestTime);
   
   // GET route located at the endpoint “/”
   app.get('/', (req,resp)=>{
@@ -71,7 +71,7 @@ app.use(
 });
 
 // Return a list of ALL movies to the user
-app.get("/movies", passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get("/movies", (req, res) => {
   Movies.find().then((movie)=>{
 res.status(200).json(movie)
   }).catch((err)=>{
