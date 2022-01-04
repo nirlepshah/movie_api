@@ -117,6 +117,8 @@ app.get("/users", passport.authenticate('jwt', { session: false }), (req, res) =
 
 // Add new user
 app.post('/users', (req, res) => {
+//Variable to store hashed password
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -124,7 +126,7 @@ app.post('/users', (req, res) => {
       } else {
         Users.create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -166,11 +168,11 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 
 
 //Allow user to add movie to list of favorites
-app.post('/users/:Username/movies/:title',passport.authenticate('jwt', { session: false }),  (req, res) => {
-  var favMovie = req.params.title;
+app.post('/users/:Username/movies/:id',passport.authenticate('jwt', { session: false }),  (req, res) => {
+  var favMovie = req.params.id;
   console.log(favMovie);
   Users.findOneAndUpdate({Username: req.params.Username}, {
-      $addToSet: {FavouriteMovies: req.params.title}
+      $addToSet: {FavouriteMovies: req.params.id}
   },
   { new: true},
  (err, updatedUser) => {
@@ -186,10 +188,10 @@ app.post('/users/:Username/movies/:title',passport.authenticate('jwt', { session
 
 
 //Allow user to remove movie from list of favorites
-app.delete('/users/:Username/movies/:title', passport.authenticate('jwt', { session: false }),  (req, res) => {
+app.delete('/users/:Username/movies/:id', passport.authenticate('jwt', { session: false }),  (req, res) => {
 
   Users.findOneAndUpdate({Username: req.params.Username}, {
-      $pull: {FavouriteMovies: req.params.title}
+      $pull: {FavouriteMovies: req.params.id}
   },
   { new: true},
  (err, updatedUser) => {
