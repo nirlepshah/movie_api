@@ -1,11 +1,18 @@
 const express = require('express');
 const morgan = require('morgan')
 const fs = require('fs')
-const app = express();
+
 require('dotenv').config();
 const uri = process.env.CONNECTION_URI;
 const mongoose = require('mongoose');
+//Import mongoose library and model.js
 
+const Models = require('./models');
+
+ // Integrating Mongoose with a API
+
+ const Movies = Models.Movie;
+ const Users = Models.User;
 
 getConnection = async () => {
   try {
@@ -24,14 +31,9 @@ getConnection();
 // mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
 //   console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
 
+const app = express();
 //import express-validator
 const { check, validationResult } = require('express-validator');
-
-//Import mongoose library and model.js
-
-
-
-const Models = require('./models');
 
 //body-parser imported
 
@@ -61,10 +63,7 @@ let auth = require('./auth')(app);
 
 
 
-  // Integrating Mongoose with a API
-
-const Movies = Models.Movie;
-const Users = Models.User;
+ 
 
 // // middleware to add timestamp of the request
 // let requestTime = (req, res, next) => {
