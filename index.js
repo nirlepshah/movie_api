@@ -5,6 +5,9 @@ const app = express();
 require('dotenv').config();
 const uri = process.env.CONNECTION_URI;
 
+mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
+  console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
+
 //import express-validator
 const { check, validationResult } = require('express-validator');
 
@@ -40,8 +43,7 @@ let auth = require('./auth')(app);
 
 // mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
 
-mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
-  console.log('Connected to MongoDatabase');}).catch(err=> {console.error("Error connnecting to Mongo", err);});
+
 
   // Integrating Mongoose with a API
 
