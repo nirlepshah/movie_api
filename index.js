@@ -38,8 +38,6 @@ require('./passport');
 let auth = require('./auth')(app);
 
 
-
-
 // mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
 
 mongoose.connect(uri, { useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(x => {
@@ -76,7 +74,7 @@ const Users = Models.User;
 });
 
 // Return a list of ALL movies to the user
-app.get("/movies", (req, res) => {
+app.get("/movies",passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find().then((movie)=>{
 res.status(200).json(movie)
   }).catch((err)=>{
