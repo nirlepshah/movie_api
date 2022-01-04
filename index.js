@@ -22,19 +22,15 @@ const uuid = require("uuid");
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'));
 
+// Import CORS library
 
-
-
+const cors = require('cors');
+app.use(cors());
 
 // Import passport library 
-
   const passport = require('passport');
 require('./passport');
 let auth = require('./auth')(app);
-
-
-
-let allowedOrigins = ['http://localhost:8087'];
 
 
 
