@@ -13,12 +13,10 @@ const Models = require('./models');
 
  const Movies = Models.Movie;
  const Users = Models.User;
-
  
 // mongoose.connect('mongodb://localhost:27017/myMovieDB', { useNewUrlParser: true, useUnifiedTopology: true })
 
  mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
 
 const app = express();
 
@@ -48,26 +46,19 @@ app.use(cors());
 require('./passport');
 let auth = require('./auth')(app);
 
+// middleware to add timestamp of the request
+let requestTime = (req, res, next) => {
+  req.requestTime = Date.now();
+  console.log(req.requestTime);
+  next();
+};
 
-
-
- 
-
-// // middleware to add timestamp of the request
-// let requestTime = (req, res, next) => {
-//   req.requestTime = Date.now();
-//   console.log(req.requestTime);
-//   next();
-// };
-
-// app.use(
-//   morgan("common", {
-//     stream: fs.createWriteStream("./access.log", { flags: "a" }),
-//   })
-// );
-  
-  
-  // app.use(requestTime);
+app.use(
+  morgan("common", {
+    stream: fs.createWriteStream("./access.log", { flags: "a" }),
+  })
+);
+app.use(requestTime);
   
   // GET route located at the endpoint “/”
   app.get('/', (req,resp)=>{
@@ -187,7 +178,6 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
    });
 })
 
-
 //Allow user to add movie to list of favorites
 app.post('/users/:Username/movies/:id',passport.authenticate('jwt', { session: false }),  (req, res) => {
   var favMovie = req.params.id;
@@ -205,8 +195,6 @@ app.post('/users/:Username/movies/:id',passport.authenticate('jwt', { session: f
      }
  });
 });
-
-
 
 //Allow user to remove movie from list of favorites
 app.delete('/users/:Username/movies/:id', passport.authenticate('jwt', { session: false }),  (req, res) => {
