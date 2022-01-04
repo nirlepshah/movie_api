@@ -124,9 +124,7 @@ app.post('/users', [
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
 ], (req, res) => {
-
   let errors = validationResult(req);
-
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
@@ -243,6 +241,8 @@ app.use((error, req, res, next) => {
     res.send(`Something Broke`) // Renders an error page to user!
    });
 
-
+   const port = process.env.PORT || 8083;
+   app.listen(port, '0.0.0.0',() => {
+    console.log('Listening on Port ' + port);
+   });
 app.listen(8083)
-console.log('My first node server is running on the port 8083.')
