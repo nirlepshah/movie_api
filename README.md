@@ -48,9 +48,9 @@ The API for the "movies" web application interacts with a database that stores d
 | Allow existing users to deregister                         | /users/:Username            | DELETE      | Allow existing users to deregister.                                                |
 |                                                            |
 
-● Database is built using MongoDB and uploaded to MongoDB Atlas. <br />
-● Database is connected to API deployed on Heroku.<br />
-● API includes user authentication, authorization code and data validation at relevant endpoints.
+● Database is built using MongoDB and uploaded to MongoDB Atlas <br />
+● Database is connected to API deployed on Heroku<br />
+● API includes user authentication, authorization code and data validation at relevant endpoints
 
 ## Test the API
 
