@@ -56,7 +56,7 @@ The API for the "movies" web application interacts with a database that stores d
 
 I tested endpoints in Postman to ensure that everything is working correctly between app and database
 
-## Screenshot of few requests maded to the endpoints
+## Screenshots of few requests made to the endpoints
 
 ![alt movies endpoint](https://github.com/nirlepshah/movie_api/blob/main/images/movies.png)
 
