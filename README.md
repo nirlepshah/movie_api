@@ -49,12 +49,12 @@ The API for the "movies" web application interacts with a database that stores d
 |                                                            |
 
 ● Database is built using MongoDB and uploaded to MongoDB Atlas. <br />
-● Database is connected to API deployed on Heroku<br />
-● API includes user authenticationa, authorization code and data validation at relevant endpoints.
+● Database is connected to API deployed on Heroku.<br />
+● API includes user authentication, authorization code and data validation at relevant endpoints.
 
 ## Test the API
 
-I tested endpoints in Postman to ensure that everything is working correctly between app and database
+I tested endpoints in Postman to ensure that everything is working correctly between app and database.
 
 ## Screenshots of few requests made to the endpoints
 
