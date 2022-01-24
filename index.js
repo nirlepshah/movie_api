@@ -70,7 +70,7 @@ app.use(requestTime);
 });
 
 // Return a list of ALL movies to the user
-app.get("/movies", (req, res) => {
+app.get("/movies", passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find().then((movie)=>{
 res.status(200).json(movie)
   }).catch((err)=>{
@@ -108,6 +108,15 @@ app.get("/directors/:directorName",passport.authenticate('jwt', { session: false
     res.status(500).send('Error' + err);
 });
 });
+//Tochk
+app.get("/users/:Username", passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOne({Username:req.params.Username}).then((users)=>{
+    res.json(users)
+  }).catch((err)=>{console.log(err)
+    res.status(500).send('Error' + err);
+  })
+});
+
 
 //Get data about all users
 app.get("/users", passport.authenticate('jwt', { session: false }), (req, res) => {
