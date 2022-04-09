@@ -41,6 +41,19 @@ app.use(express.static(__dirname + '/public'));
 const cors = require('cors');
 app.use(cors());
 
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:4200'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 // Import passport library 
 const passport = require('passport');
 require('./passport');
@@ -193,7 +206,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 })
 
 //Allow user to add movie to list of favorites
-app.post('/users/:Username/movies/:id', (req, res) => {
+app.post('/users/:Username/movies/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   var favMovie = req.params.id;
   console.log(favMovie);
   Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -211,7 +224,7 @@ app.post('/users/:Username/movies/:id', (req, res) => {
 });
 
 //Allow user to remove movie from list of favorites
-app.delete('/users/:Username/movies/:id', (req, res) => {
+app.delete('/users/:Username/movies/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
 
   Users.findOneAndUpdate({ Username: req.params.Username }, {
     $pull: { FavouriteMovies: req.params.id }
