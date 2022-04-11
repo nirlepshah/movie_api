@@ -38,8 +38,8 @@ app.use(express.static(__dirname + '/public'));
 
 // Import CORS library
 
-// const cors = require('cors');
-// app.use(cors());
+const cors = require('cors');
+app.use(cors());
 
 // let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:4200', 'http://localhost:4200/welcome', 'http://localhost:4200/movies', 'http://localhost:4200/profile', 'https://mymovieapp08.herokuapp.com/'];
 
