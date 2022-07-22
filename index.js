@@ -41,7 +41,7 @@ app.use(express.static(__dirname + '/public'));
 const cors = require('cors');
 // app.use(cors());
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:4200', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:4200', 'http://localhost:1234', 'https://nirlepshah.github.io/myFlix-Angular-client/welcome'];
 
 app.use(cors({
   origin: (origin, callback) => {
